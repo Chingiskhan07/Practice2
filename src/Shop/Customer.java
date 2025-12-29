@@ -61,8 +61,6 @@ public class Customer {
         }
     }
 
-
-    // LOGIC METHODS
     public void addPoints(int points) {
         this.points += points;
     }

@@ -13,7 +13,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // Test data
+
         items.add(new ClothingItem(1, "T-Shirt", "M", 12000, "Nike"));
         customers.add(new Customer(101, "Ali", "M", 80));
         orders.add(new Order(5001, "Ali", 12000, "Pending"));
