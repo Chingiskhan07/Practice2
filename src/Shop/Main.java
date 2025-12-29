@@ -44,9 +44,6 @@ public class Main {
                 case 6:
                     viewOrders();
                     break;
-                case 7:
-                    completeOrder();
-                    break;
                 case 0:
                     running = false;
                     System.out.println("Program terminated.");
@@ -73,7 +70,6 @@ public class Main {
         System.out.println("4. View all customers");
         System.out.println("5. Create order");
         System.out.println("6. View orders");
-        System.out.println("7. Complete order");
         System.out.println("0. Exit");
         System.out.print("Choose option: ");
     }
@@ -172,21 +168,6 @@ public class Main {
         }
     }
 
-    private static void completeOrder() {
-        System.out.print("Enter order ID to complete: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-
-        for (Order o : orders) {
-            if (o.getOrderId() == id) {
-                o.complete();
-                System.out.println("Order completed.");
-                return;
-            }
-        }
-
-        System.out.println("Order not found.");
     }
-}
 
 
