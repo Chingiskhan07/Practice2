@@ -9,9 +9,9 @@ public class Customer {
 
     public Customer(int customerId, String name, String preferredSize, int points) {
         this.customerId = customerId;
-        this.name = name;
+        setName(name);
         this.preferredSize = preferredSize;
-        this.points = points;
+        setPoints(points);
     }
 
     public Customer() {
@@ -42,7 +42,11 @@ public class Customer {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if (name != null && !name.trim().isEmpty()) {
+            this.name = name;
+        } else {
+            this.name = "Unknown";
+        }
     }
 
     public void setPreferredSize(String preferredSize) {
@@ -50,8 +54,13 @@ public class Customer {
     }
 
     public void setPoints(int points) {
-        this.points = points;
+        if (points >= 0) {
+            this.points = points;
+        } else {
+            this.points = 0;
+        }
     }
+
 
     // LOGIC METHODS
     public void addPoints(int points) {

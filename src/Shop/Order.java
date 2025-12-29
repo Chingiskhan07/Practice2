@@ -9,10 +9,11 @@ public class Order {
 
     public Order(int orderId, String customerName, double total, String status) {
         this.orderId = orderId;
-        this.customerName = customerName;
-        this.total = total;
-        this.status = status;
+        setCustomerName(customerName);
+        setTotal(total);
+        setStatus(status);
     }
+
 
     public int getOrderId() {
         return orderId;
@@ -35,18 +36,29 @@ public class Order {
     }
 
     public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+        if (customerName != null && !customerName.trim().isEmpty()) {
+            this.customerName = customerName;
+        } else {
+            this.customerName = "Unknown";
+        }
     }
 
     public void setTotal(double total) {
-        this.total = total;
+        if (total >= 0) {
+            this.total = total;
+        } else {
+            this.total = 0;
+        }
     }
 
     public void setStatus(String status) {
-        this.status = status;
+        if (status.equals("Pending") || status.equals("Completed")) {
+            this.status = status;
+        } else {
+            this.status = "Pending";
+        }
     }
 
-    // LOGIC METHODS
     public void complete() {
         status = "Completed";
     }

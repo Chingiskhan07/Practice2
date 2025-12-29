@@ -10,9 +10,9 @@ public class ClothingItem {
 
     public ClothingItem(int itemId, String name, String size, double price, String brand) {
         this.itemId = itemId;
-        this.name = name;
+        setName(name);
         this.size = size;
-        this.price = price;
+        setPrice(price);
         this.brand = brand;
     }
 
@@ -37,7 +37,11 @@ public class ClothingItem {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if (name != null && !name.trim().isEmpty()) {
+            this.name = name;
+        } else {
+            this.name = "Unknown";
+        }
     }
 
     public String getSize() {
@@ -53,7 +57,11 @@ public class ClothingItem {
     }
 
     public void setPrice(double price) {
-        this.price = price;
+        if (price >= 0) {
+            this.price = price;
+        } else {
+            this.price = 0;
+        }
     }
 
     public String getBrand() {
@@ -64,7 +72,7 @@ public class ClothingItem {
         this.brand = brand;
     }
 
-    // логика
+
     public void applyDiscount(double percent) {
         price = price * (1 - percent / 100);
     }
