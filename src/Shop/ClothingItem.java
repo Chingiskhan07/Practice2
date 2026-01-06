@@ -2,11 +2,11 @@ package Shop;
 
 public class ClothingItem {
 
-    private int itemId;
-    private String name;
-    private String size;
-    private double price;
-    private String brand;
+    protected int itemId;
+    protected String name;
+    protected String size;
+    protected double price;
+    protected String brand;
 
     public ClothingItem(int itemId, String name, String size, double price, String brand) {
         this.itemId = itemId;

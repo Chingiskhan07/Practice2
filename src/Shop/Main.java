@@ -13,10 +13,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         items.add(new ClothingItem(1, "T-Shirt", "M", 12000, "Nike"));
         customers.add(new Customer(101, "Ali", "M", 80));
         orders.add(new Order(5001, "Ali", 12000, "Pending"));
+        items.add(new Shirt(2, "Polo", "L", 15000, "Zara", true));
+        items.add(new Jacket(3, "Winter Jacket", "XL", 35000, "Adidas", true));
+
 
         boolean running = true;
 
@@ -106,6 +108,19 @@ public class Main {
 
         for (ClothingItem item : items) {
             System.out.println(item);
+            item.work();
+
+            if (item instanceof Jacket) {
+                Jacket j = (Jacket) item;
+                if (j.hasHood()) {
+                    System.out.println(" → This jacket has a hood");
+                }
+            } else if (item instanceof Shirt) {
+                Shirt s = (Shirt) item;
+                if (s.isWinterShirt()) {
+                    System.out.println(" → Suitable for winter");
+                }
+            }
         }
     }
 
@@ -167,7 +182,6 @@ public class Main {
             System.out.println(o);
         }
     }
-
-    }
+}
 
 
