@@ -16,6 +16,10 @@ public class ClothingItem {
         this.brand = brand;
     }
 
+    public void work() {
+        System.out.println("Clothing item is being processed");
+    }
+
     public ClothingItem() {
         this.itemId = 0;
         this.name = "Unknown";
