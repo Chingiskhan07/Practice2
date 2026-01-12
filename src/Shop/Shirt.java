@@ -5,7 +5,7 @@ public class Shirt extends ClothingItem {
     private boolean longSleeve;
 
     public Shirt(int itemId, String name, String size, double price, String brand, boolean longSleeve) {
-        super(itemId, name, size, price, brand); // ОБЯЗАТЕЛЬНО FIRST
+        super(itemId, name, size, price, brand);
         this.longSleeve = longSleeve;
     }
 
