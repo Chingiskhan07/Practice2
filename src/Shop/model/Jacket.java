@@ -1,7 +1,6 @@
-package Shop;
+package Shop.model;
 
 public class Jacket extends ClothingItem {
-
     private boolean hood;
 
     public Jacket(int itemId, String name, String size, double price, String brand, boolean hood) {
@@ -14,6 +13,18 @@ public class Jacket extends ClothingItem {
         System.out.println("Jacket " + name + " is protecting from cold");
     }
 
+    public boolean hasHood() {
+        return hood;
+    }
+
+    public void setHood(boolean hood) {
+        this.hood = hood;
+    }
+
+    public void zipUp() {
+        System.out.println(name + " is zipped up.");
+    }
+
     @Override
     public String toString() {
         return "Jacket{" +
@@ -24,13 +35,5 @@ public class Jacket extends ClothingItem {
                 ", brand='" + brand + '\'' +
                 ", hood=" + hood +
                 '}';
-    }
-
-    public boolean hasHood() {
-        return hood;
-    }
-
-    public void zipUp() {
-        System.out.println(name + " is zipped up.");
     }
 }

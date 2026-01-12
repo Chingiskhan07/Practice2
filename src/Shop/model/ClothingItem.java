@@ -1,7 +1,8 @@
-package Shop;
+package Shop.model;
 
-public class ClothingItem {
+import Shop.exception.InvalidInputException;
 
+public abstract class ClothingItem implements Discountable {
     protected int itemId;
     protected String name;
     protected String size;
@@ -9,30 +10,26 @@ public class ClothingItem {
     protected String brand;
 
     public ClothingItem(int itemId, String name, String size, double price, String brand) {
-        this.itemId = itemId;
+        setItemId(itemId);
         setName(name);
-        this.size = size;
+        setSize(size);
         setPrice(price);
-        this.brand = brand;
+        setBrand(brand);
     }
-
-    public void work() {
-        System.out.println("Clothing item is being processed");
-    }
-
     public ClothingItem() {
-        this.itemId = 0;
-        this.name = "Unknown";
-        this.size = "M";
-        this.price = 0.0;
-        this.brand = "No brand";
+        this(0, "Unknown", "M", 0.0, "No brand");
     }
+
+    public abstract void work();
 
     public int getItemId() {
         return itemId;
     }
 
     public void setItemId(int itemId) {
+        if (itemId < 0) {
+            throw new InvalidInputException("Item ID cannot be negative");
+        }
         this.itemId = itemId;
     }
 
@@ -41,11 +38,10 @@ public class ClothingItem {
     }
 
     public void setName(String name) {
-        if (name != null && !name.trim().isEmpty()) {
-            this.name = name;
-        } else {
-            this.name = "Unknown";
+        if (name == null || name.trim().isEmpty()) {
+            throw new InvalidInputException("Name cannot be null or empty");
         }
+        this.name = name;
     }
 
     public String getSize() {
@@ -53,6 +49,9 @@ public class ClothingItem {
     }
 
     public void setSize(String size) {
+        if (size == null || size.trim().isEmpty()) {
+            throw new InvalidInputException("Size cannot be null or empty");
+        }
         this.size = size;
     }
 
@@ -61,11 +60,10 @@ public class ClothingItem {
     }
 
     public void setPrice(double price) {
-        if (price >= 0) {
-            this.price = price;
-        } else {
-            this.price = 0;
+        if (price < 0) {
+            throw new InvalidInputException("Price cannot be negative");
         }
+        this.price = price;
     }
 
     public String getBrand() {
@@ -73,14 +71,21 @@ public class ClothingItem {
     }
 
     public void setBrand(String brand) {
+        if (brand == null || brand.trim().isEmpty()) {
+            throw new InvalidInputException("Brand cannot be null or empty");
+        }
         this.brand = brand;
     }
 
-
+    @Override
     public void applyDiscount(double percent) {
+        if (percent < 0 || percent > 100) {
+            throw new InvalidInputException("Discount percent must be between 0 and 100");
+        }
         price = price * (1 - percent / 100);
     }
 
+    @Override
     public boolean isPremium() {
         return price > 20000;
     }
