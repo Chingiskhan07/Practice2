@@ -75,7 +75,7 @@ public class clothingDAO {
     }
 
     public boolean updateClothingItem(ClothingItem item) {
-        String sql = "UPDATE clothing_items SET name = ?, size = ?, price = ?, brand = ?, type = ?, extra = ? WHERE item_id = ?";
+        String sql = "UPDATE clothing_items SET name = ?, size = ?, price = ?, brand = ?, type = ?, extra = ?";
         Connection connection = databaseconnection.getConnection();
         if (connection == null) return false;
         try {
@@ -90,7 +90,6 @@ public class clothingDAO {
 
             statement.setString(5, type);
             statement.setBoolean(6, extra);
-            statement.setInt(7, item.getItemId());
 
             int rowsUpdated = statement.executeUpdate();
             statement.close();
