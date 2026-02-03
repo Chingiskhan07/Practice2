@@ -291,76 +291,6 @@ public class clothingDAO {
         return customers;
     }
 
-    public Customer getCustomerById(int customerId) {
-        String sql = "SELECT * FROM customers WHERE customer_id = ?";
-        Connection connection = databaseconnection.getConnection();
-        if (connection == null) return null;
-        try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, customerId);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return extractCustomerFromResultSet(resultSet);
-            }
-            resultSet.close();
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            databaseconnection.closeConnection(connection);
-        }
-        return null;
-    }
-
-    public boolean updateCustomer(Customer customer) {
-        String sql = "UPDATE customers SET name = ?, preferred_size = ?, points = ? WHERE customer_id = ?";
-        Connection connection = databaseconnection.getConnection();
-        if (connection == null) return false;
-        try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, customer.getName());
-            statement.setString(2, customer.getPreferredSize());
-            statement.setInt(3, customer.getPoints());
-            statement.setInt(4, customer.getCustomerId());
-            int rowsUpdated = statement.executeUpdate();
-            statement.close();
-            if (rowsUpdated > 0) {
-                System.out.println("Customer updated: " + customer.getName());
-                return true;
-            }
-        } catch (SQLException e) {
-            System.out.println("Update customer failed!");
-            e.printStackTrace();
-        } finally {
-            databaseconnection.closeConnection(connection);
-        }
-        return false;
-    }
-
-    public boolean deleteCustomer(int customerId) {
-        String sql = "DELETE FROM customers WHERE customer_id = ?";
-        Connection connection = databaseconnection.getConnection();
-        if (connection == null) return false;
-        try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, customerId);
-            int rowsDeleted = statement.executeUpdate();
-            statement.close();
-            if (rowsDeleted > 0) {
-                System.out.println("Customer deleted (ID: " + customerId + ")");
-                return true;
-            } else {
-                System.out.println("No customer found with ID: " + customerId);
-            }
-        } catch (SQLException e) {
-            System.out.println("Delete customer failed!");
-            e.printStackTrace();
-        } finally {
-            databaseconnection.closeConnection(connection);
-        }
-        return false;
-    }
-
     private Customer extractCustomerFromResultSet(ResultSet resultSet) throws SQLException {
         int customerId = resultSet.getInt("customer_id");
         String name = resultSet.getString("name");
@@ -417,27 +347,6 @@ public class clothingDAO {
         return orders;
     }
 
-    public Order getOrderById(int orderId) {
-        String sql = "SELECT * FROM orders WHERE order_id = ?";
-        Connection connection = databaseconnection.getConnection();
-        if (connection == null) return null;
-        try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, orderId);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return extractOrderFromResultSet(resultSet);
-            }
-            resultSet.close();
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            databaseconnection.closeConnection(connection);
-        }
-        return null;
-    }
-
     public boolean updateOrderStatus(int orderId, String newStatus) {
         String sql = "UPDATE orders SET status = ? WHERE order_id = ?";
         Connection connection = databaseconnection.getConnection();
@@ -454,30 +363,6 @@ public class clothingDAO {
             }
         } catch (SQLException e) {
             System.out.println("Update order status failed!");
-            e.printStackTrace();
-        } finally {
-            databaseconnection.closeConnection(connection);
-        }
-        return false;
-    }
-
-    public boolean deleteOrder(int orderId) {
-        String sql = "DELETE FROM orders WHERE order_id = ?";
-        Connection connection = databaseconnection.getConnection();
-        if (connection == null) return false;
-        try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, orderId);
-            int rowsDeleted = statement.executeUpdate();
-            statement.close();
-            if (rowsDeleted > 0) {
-                System.out.println("Order deleted (ID: " + orderId + ")");
-                return true;
-            } else {
-                System.out.println("No order found with ID: " + orderId);
-            }
-        } catch (SQLException e) {
-            System.out.println("Delete order failed!");
             e.printStackTrace();
         } finally {
             databaseconnection.closeConnection(connection);
